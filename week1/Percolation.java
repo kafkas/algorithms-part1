@@ -44,7 +44,7 @@ public class Percolation {
         if (!isOpen(row, col)) {
             int siteIndex = convertTo1DIndex(row, col);
             openSite(siteIndex);
-            incrementOpenSiteCount();
+            openSiteCount++;
             if (siteIsInFirstRow(row))
                 connectSiteToTopVirtual(siteIndex);
             if (siteIsInLastRow(row))
@@ -69,10 +69,6 @@ public class Percolation {
 
     private void openSite(int siteIndex) {
         sites[siteIndex] = OPEN;
-    }
-
-    private void incrementOpenSiteCount() {
-        openSiteCount++;
     }
 
     private boolean siteIsInFirstRow(int row) {
