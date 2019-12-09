@@ -20,7 +20,7 @@ public class Percolation {
         gridSize = n;
         forest1 = new WeightedQuickUnionUF(1 + gridSize * gridSize); // With top virtual node
         forest2 = new WeightedQuickUnionUF(2 + gridSize * gridSize); // With both virtual nodes
-        initializeGrid();
+        initialiseGrid();
     }
 
     private void validateGridSize(int n) {
@@ -28,7 +28,7 @@ public class Percolation {
             throw new IllegalArgumentException("Grid size must be at least 1.");
     }
 
-    private void initializeGrid() {
+    private void initialiseGrid() {
         sites = new boolean[gridSize * gridSize + 2];
         sites[TOP_VIRTUAL_INDEX] = OPEN;
         for (int i = 1; i < bottomVirtualIndex(); i += 1)
