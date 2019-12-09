@@ -72,7 +72,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public Item dequeue() {
         validateDequeueOperation();
-        Item item = deleteLastItem();
+        Item item = deleteAndReturnLastItem();
         itemCount--;
         if (isItemCountAtMinThreshold())
             resize(itemsArray.length / 2);
@@ -84,7 +84,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new NoSuchElementException("The randomized queue is already empty.");
     }
 
-    private Item deleteLastItem() {
+    private Item deleteAndReturnLastItem() {
         Item lastItem = itemsArray[itemCount - 1];
         itemsArray[itemCount - 1] = null;
         return lastItem;
