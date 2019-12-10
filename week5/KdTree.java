@@ -97,6 +97,8 @@ public class KdTree {
 
     private Node nearest(Node x, Node nearestNode, Point2D p) {
         if (subtreeMayContainANearerNode(x, nearestNode, p)) {
+            if (x.point.equals(p))
+                return x;
             if (isCurrentNodeNearerToPointThanNearest(x, nearestNode, p))
                 nearestNode = x;
             if (x.right != null && x.right.rect.contains(p)) {
@@ -111,7 +113,7 @@ public class KdTree {
     }
 
     private boolean subtreeMayContainANearerNode(Node x, Node nearestNode, Point2D p) {
-        return (x != null && nearestNode.point.distanceSquaredTo(p) >= x.rect.distanceSquaredTo(p));
+        return (x != null && nearestNode.point.distanceSquaredTo(p) > x.rect.distanceSquaredTo(p));
     }
 
     private boolean isCurrentNodeNearerToPointThanNearest(Node x, Node nearestNode, Point2D p) {
