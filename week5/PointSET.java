@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.TreeSet;
-import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.Point2D;
 import edu.princeton.cs.algs4.RectHV;
 import edu.princeton.cs.algs4.StdOut;
@@ -85,12 +84,7 @@ public class PointSET {
 
     public static void main(String[] args) {
         PointSET set = new PointSET();
-        for (int i = 1; i <= 100; i++) {
-            double x = StdRandom.uniform(0.0, 1.0);
-            double y = StdRandom.uniform(0.0, 1.0);
-            Point2D point = new Point2D(x, y);
-            set.insert(point);
-        }
+        insertRandomPointsToSet(set, 100);
         set.draw();
         Point2D testPoint = new Point2D(0.52, 0.65);
         StdOut.println("set.isEmpty() == " + set.isEmpty());
@@ -102,5 +96,10 @@ public class PointSET {
         for (Point2D point : set.range(testRange))
             StdOut.println(point);
         StdOut.println("set.nearest(" + testPoint + ") == " + set.nearest(testPoint));
+    }
+
+    private static void insertRandomPointsToSet(PointSET set, int pointCount) {
+        for (int i = 1; i <= pointCount; i++)
+            set.insert(new Point2D(StdRandom.uniform(0.0, 1.0), StdRandom.uniform(0.0, 1.0)));
     }
 }
