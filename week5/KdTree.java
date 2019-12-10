@@ -29,15 +29,15 @@ public class KdTree {
         if (node == null)
             return new Node(p, direction, 1, new RectHV(xmin, ymin, xmax, ymax));
         if (node.isDirectionallyLessThan(p)) {
-            if (node.direction == VERTICAL)
+            if (node.isVertical())
                 xmin = node.point.x();
-            else if (node.direction == HORIZONTAL)
+            else if (node.isHorizontal())
                 ymin = node.point.y();
             node.right = insert(node.right, p, !direction, xmin, ymin, xmax, ymax);
         } else {
-            if (node.direction == VERTICAL)
+            if (node.isVertical())
                 xmax = node.point.x();
-            else if (node.direction == HORIZONTAL)
+            else if (node.isHorizontal())
                 ymax = node.point.y();
             node.left = insert(node.left, p, !direction, xmin, ymin, xmax, ymax);
         }
@@ -101,7 +101,7 @@ public class KdTree {
                 return x;
             if (isCurrentNodeNearerToPointThanNearest(x, nearestNode, p))
                 nearestNode = x;
-            if (x.right != null && x.right.rect.contains(p)) {
+            if (x.isDirectionallyLessThan(p)) {
                 nearestNode = nearest(x.right, nearestNode, p);
                 nearestNode = nearest(x.left, nearestNode, p);
             } else {
@@ -158,7 +158,7 @@ public class KdTree {
         }
 
         private int directionalDiff(Point2D thatPoint) {
-            if (direction == VERTICAL)
+            if (isVertical())
                 return point.x() < thatPoint.x() ? -1 : 1;
             return point.y() < thatPoint.y() ? -1 : 1;
         }
@@ -167,7 +167,7 @@ public class KdTree {
             StdDraw.setPenColor(StdDraw.BLACK);
             point.draw();
             double x0, y0, x1, y1;
-            if (direction == VERTICAL) {
+            if (isVertical()) {
                 StdDraw.setPenColor(StdDraw.RED);
                 x0 = x1 = point.x();
                 y0 = rect.ymin();
@@ -179,6 +179,14 @@ public class KdTree {
                 y0 = y1 = point.y();
             }
             StdDraw.line(x0, y0, x1, y1);
+        }
+
+        private boolean isVertical() {
+            return direction == VERTICAL;
+        }
+
+        private boolean isHorizontal() {
+            return direction == HORIZONTAL;
         }
     }
 
