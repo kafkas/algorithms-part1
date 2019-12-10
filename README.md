@@ -9,13 +9,13 @@ My coding style can be summarised as:
 - Each function should take at most 4 distinct arguments (more work to be done on this)
 - Prefer long, descriptive, intention-revealing names over comments
 - Avoid comments if names are self-explanatory (including javadocs)
-- The functions used in each function should be found as fast as possible below that function
+- The declarations of functions used in each function should be found as fast as possible below that function
 
 When I clean the code according to these rules, I can read it from top to bottom like a poem. I have found that not only is this visually pleasing but it also helps me understand the algorithms much better.
 
 ## Assignment pages
 
-1. [Percolation](https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php)
+1. [Percolation](https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php) ([playground](https://anarkafkas.com/algos/percolation))
 
 2. [Queues](https://coursera.cs.princeton.edu/algs4/assignments/queues/specification.php)
 
