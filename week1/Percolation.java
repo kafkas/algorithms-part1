@@ -1,9 +1,9 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private final static boolean OPEN = true;
-    private final static boolean BLOCKED = false;
-    private final static int TOP_VIRTUAL_INDEX = 0;
+    private static final boolean OPEN = true;
+    private static final boolean BLOCKED = false;
+    private static final int TOP_VIRTUAL_INDEX = 0;
     private final int gridSize;
     private final WeightedQuickUnionUF forest1, forest2;
     private boolean[] sites; // sites[index] indicates whether a site is OPEN or BLOCKED
