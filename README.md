@@ -1,12 +1,19 @@
 # Solutions to Algorithms, Part I
 
-These are my solutions to Algorithms, Part I, the Princeton course by Robert Sedgewick and Kevin Wayne. All solutions score 100% in correctness, timing and memory. More importantly, I have taken extra care to ensure the code is [clean](https://www.amazon.co.uk/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) and reads like [well-written prose](https://hackernoon.com/how-to-write-clean-code-d557d998bb08).
+This repo contains my solutions to Algorithms, Part I, the online Princeton course by Robert Sedgewick and Kevin Wayne. All 5 solutions score 100% in correctness, timing and memory. More importantly, I have taken extra care to ensure the code is [clean](https://www.goodreads.com/book/show/3735293-clean-code) and that it [reads like well-written prose](https://hackernoon.com/how-to-write-clean-code-d557d998bb08).
 
-- prefer long descriptive names over comments
-- smaller functions
-- operating at the same abstraction level throughout a function (with trivial violations such as incrementing instance variables)
+My coding style can be summarised as:
 
-I have found that not only is this visually pleasing but it also helps me understand the algorithms much better.
+- Use small functions that do one thing only and have no hidden side effects
+- Have one level of abstraction per function (with small violations)
+- Each function should take at most 4 distinct arguments (more work to be done on this)
+- Prefer long, descriptive, intention-revealing names over comments
+- Avoid comments if names are self-explanatory (including javadocs)
+- The functions used in each function should be found as fast as possible below that function
+
+When I clean the code according to these rules, I can read it from top to bottom like a poem. I have found that not only is this visually pleasing but it also helps me understand the algorithms much better.
+
+## Assignment pages
 
 1. [Percolation](https://coursera.cs.princeton.edu/algs4/assignments/percolation/specification.php)
 
@@ -17,3 +24,7 @@ I have found that not only is this visually pleasing but it also helps me unders
 4. [Slider Puzzle](https://coursera.cs.princeton.edu/algs4/assignments/8puzzle/specification.php)
 
 5. [Kd-trees](https://coursera.cs.princeton.edu/algs4/assignments/kdtree/specification.php)
+
+## Contributions
+
+All PRs, even the ones with tiniest improvements, are welcome.
