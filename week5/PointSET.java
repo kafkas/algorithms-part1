@@ -30,7 +30,7 @@ public class PointSET {
 
     public void insert(Point2D p) {
         validateNonNullArgument(p);
-        if (!contains(p))
+        if (!treeSet.contains(p))
             treeSet.add(p);
     }
 
@@ -58,10 +58,14 @@ public class PointSET {
         ArrayList<Point2D> rangePoints = new ArrayList<>();
         Point2D bottomLeft = new Point2D(rect.xmin(), rect.ymin());
         for (Point2D p : treeSet.tailSet(bottomLeft, true))
-            if (p.x() <= rect.xmax() && p.y() <= rect.ymax() && p.x() >= rect.xmin()
-                    && p.y() >= rect.ymin())
+            if (isWithinRange(p, rect))
                 rangePoints.add(p);
         return rangePoints;
+    }
+
+    private boolean isWithinRange(Point2D p, RectHV range) {
+        return p.x() <= range.xmax() && p.y() <= range.ymax() && p.x() >= range.xmin()
+                && p.y() >= range.ymin();
     }
 
     /**

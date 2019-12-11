@@ -20,49 +20,23 @@ public class Board {
         for (int row = 1; row <= dimension; row++) {
             for (int col = 1; col <= dimension; col++) {
                 int val = tiles2D[row - 1][col - 1];
-                setTile(row, col, val);
+                setTileValue(row, col, val);
                 if (val == 0)
                     gapIndex = convertTo1DIndex(row, col);
             }
         }
     }
 
-    private void setTile(int row, int col, int val) {
-        setTile(convertTo1DIndex(row, col), val);
+    private void setTileValue(int row, int col, int val) {
+        setTileValue(convertTo1DIndex(row, col), val);
     }
 
-    private void setTile(int index, int val) {
+    private void setTileValue(int index, int val) {
         tiles[index] = val;
     }
 
     private int getGoalTileValue(int row, int col) {
         return 1 + convertTo1DIndex(row, col);
-    }
-
-    private int[] getGoalTileCoords(int row, int col) {
-        return convertTo2DCoords(getGoalTileIndex(row, col));
-    }
-
-    private int getGoalTileIndex(int row, int col) {
-        int index = getTileValue(row, col) - 1;
-        // Handle the blank tile
-        if (index == -1)
-            index = dimension * dimension - 1;
-        return index;
-    }
-
-    private void swapTilesAndUpdateGapIndex(int row1, int col1, int row2, int col2) {
-        swapTilesAndUpdateGapIndex(convertTo1DIndex(row1, col1), convertTo1DIndex(row2, col2));
-    }
-
-    private void swapTilesAndUpdateGapIndex(int i, int j) {
-        int t = tiles[i];
-        tiles[i] = tiles[j];
-        tiles[j] = t;
-        if (i == gapIndex)
-            gapIndex = j;
-        if (j == gapIndex)
-            gapIndex = i;
     }
 
     public String toString() {
@@ -89,7 +63,7 @@ public class Board {
         int distance = 0;
         for (int row = 1; row <= dimension; row++)
             for (int col = 1; col <= dimension; col++)
-                if (!tileIsBlank(row, col))
+                if (!isTileBlank(row, col))
                     distance += manhattanDistanceToGoalCoords(row, col);
         return distance;
     }
@@ -97,6 +71,18 @@ public class Board {
     private int manhattanDistanceToGoalCoords(int row, int col) {
         int[] goalCoords = getGoalTileCoords(row, col);
         return Math.abs(row - goalCoords[0]) + Math.abs(col - goalCoords[1]);
+    }
+
+    private int[] getGoalTileCoords(int row, int col) {
+        return convertTo2DCoords(getGoalTileIndex(row, col));
+    }
+
+    private int getGoalTileIndex(int row, int col) {
+        int index = getTileValue(row, col) - 1;
+        // Handle the blank tile
+        if (index == -1)
+            index = dimension * dimension - 1;
+        return index;
     }
 
     public boolean isGoal() {
@@ -112,22 +98,18 @@ public class Board {
         int distance = 0;
         for (int row = 1; row <= dimension; row++)
             for (int col = 1; col <= dimension; col++)
-                if (!tileIsBlank(row, col) && !tileIsGoalTile(row, col))
+                if (!isTileBlank(row, col) && !isTileGoalTile(row, col))
                     distance++;
         return distance;
     }
 
-    private boolean tileIsBlank(int row, int col) {
+    private boolean isTileBlank(int row, int col) {
         return convertTo1DIndex(row, col) == gapIndex;
     }
 
-    private boolean tileIsGoalTile(int row, int col) {
+    private boolean isTileGoalTile(int row, int col) {
         return getTileValue(row, col) == getGoalTileValue(row, col);
     }
-
-    /**
-     * @return true if the board equals y, false otherwise
-     */
 
     public boolean equals(Object y) {
         if (y == this)
@@ -220,6 +202,20 @@ public class Board {
         else
             twin.swapTilesAndUpdateGapIndex(gapIndex + 1, gapIndex + 2);
         return twin;
+    }
+
+    private void swapTilesAndUpdateGapIndex(int row1, int col1, int row2, int col2) {
+        swapTilesAndUpdateGapIndex(convertTo1DIndex(row1, col1), convertTo1DIndex(row2, col2));
+    }
+
+    private void swapTilesAndUpdateGapIndex(int i, int j) {
+        int t = tiles[i];
+        tiles[i] = tiles[j];
+        tiles[j] = t;
+        if (i == gapIndex)
+            gapIndex = j;
+        if (j == gapIndex)
+            gapIndex = i;
     }
 
     /**

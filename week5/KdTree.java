@@ -45,6 +45,11 @@ public class KdTree {
         return node;
     }
 
+    public boolean contains(Point2D p) {
+        validateNonNullArgument(p);
+        return get(p, root) != null;
+    }
+
     private Point2D get(Point2D p, Node node) {
         if (node == null)
             return null;
@@ -53,11 +58,6 @@ public class KdTree {
         if (node.isDirectionallyLessThan(p))
             return get(p, node.right);
         return get(p, node.left);
-    }
-
-    public boolean contains(Point2D p) {
-        validateNonNullArgument(p);
-        return get(p, root) != null;
     }
 
     public void draw() {

@@ -10,6 +10,7 @@ My coding style can be summarised as:
 - Prefer long, descriptive, intention-revealing names over comments
 - Avoid comments if names are self-explanatory (including javadocs)
 - Declarations of functions used in each function should be found as fast as possible below that function
+- Conceptually linked functions should stay together
 
 When I clean the code according to these rules, I can read it from top to bottom like a poem. I have found that not only is this visually pleasing but it also helps me understand the algorithms much better.
 

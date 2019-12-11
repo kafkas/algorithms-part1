@@ -66,6 +66,26 @@ public class Solver {
         }
     }
 
+    public boolean isSolvable() {
+        return isInitialBoardSolvable;
+    }
+
+    /**
+     * @return Minimum number of moves to solve initial board
+     */
+
+    public int moves() {
+        return minMoves;
+    }
+
+    /**
+     * @return Sequence of boards in a shortest solution
+     */
+
+    public Iterable<Board> solution() {
+        return boardStack;
+    }
+
     private final class SearchNode implements Comparable<SearchNode> {
         public Board board;
         public SearchNode prevNode;
@@ -85,26 +105,6 @@ public class Solver {
                 return manhattanDistance - that.manhattanDistance;
             return p1 - p2;
         }
-    }
-
-    public boolean isSolvable() {
-        return isInitialBoardSolvable;
-    }
-
-    /**
-     * @return Minimum number of moves to solve initial board
-     */
-
-    public int moves() {
-        return minMoves;
-    }
-
-    /**
-     * @return Sequence of boards in a shortest solution
-     */
-
-    public Iterable<Board> solution() {
-        return boardStack;
     }
 
     public static void main(String[] args) {

@@ -103,20 +103,20 @@ public class FastCollinearPoints {
         // Otherwise the segment has already been added to the list.
     }
 
-    private Point findMaxPointInSubarray(Point[] points, int lo, int hi) {
-        Point max = points[lo];
-        for (int i = lo + 1; i <= hi; i++)
-            if (points[i].compareTo(max) > 0)
-                max = points[i];
-        return max;
-    }
-
     private Point findMinPointInSubarray(Point[] points, int lo, int hi) {
         Point min = points[lo];
         for (int i = lo + 1; i <= hi; i++)
             if (points[i].compareTo(min) < 0)
                 min = points[i];
         return min;
+    }
+
+    private Point findMaxPointInSubarray(Point[] points, int lo, int hi) {
+        Point max = points[lo];
+        for (int i = lo + 1; i <= hi; i++)
+            if (points[i].compareTo(max) > 0)
+                max = points[i];
+        return max;
     }
 
     public int numberOfSegments() {

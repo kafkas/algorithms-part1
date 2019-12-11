@@ -16,10 +16,6 @@ public class Deque<Item> implements Iterable<Item> {
         public Node next;
         public Node prev;
 
-        /**
-         * Constructs a empty deque.
-         */
-
         public Node(Item item) {
             this.item = item;
         }
@@ -30,14 +26,6 @@ public class Deque<Item> implements Iterable<Item> {
      */
 
     public Deque() {
-    }
-
-    public boolean isEmpty() {
-        return itemCount == 0;
-    }
-
-    public int size() {
-        return itemCount;
     }
 
     /**
@@ -123,6 +111,14 @@ public class Deque<Item> implements Iterable<Item> {
     private void validateRemoveOperation() {
         if (isEmpty())
             throw new NoSuchElementException("The deque is already empty.");
+    }
+
+    public int size() {
+        return itemCount;
+    }
+
+    public boolean isEmpty() {
+        return itemCount == 0;
     }
 
     private void nullifyNodePointers() {

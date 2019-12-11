@@ -19,14 +19,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         itemsArray = (Item[]) new Object[1];
     }
 
-    public boolean isEmpty() {
-        return itemCount == 0;
-    }
-
-    public int size() {
-        return itemCount;
-    }
-
     /**
      * Adds the item to the queue.
      */
@@ -43,13 +35,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private void validateItemToBeEnqueued(Item item) {
         if (item == null)
             throw new IllegalArgumentException("enqueue() argument cannot be null.");
-    }
-
-    private void resize(int newSize) {
-        Item[] temp = (Item[]) new Object[newSize];
-        for (int i = 0; i < itemCount; i++)
-            temp[i] = itemsArray[i];
-        itemsArray = temp;
     }
 
     private void putItemIntoFirstAvailableIndex(Item item) {
@@ -98,6 +83,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return itemCount > 0 && itemCount == itemsArray.length / 4;
     }
 
+    private void resize(int newSize) {
+        Item[] temp = (Item[]) new Object[newSize];
+        for (int i = 0; i < itemCount; i++)
+            temp[i] = itemsArray[i];
+        itemsArray = temp;
+    }
+
     /**
      * @return A random item in the queue.
      */
@@ -110,6 +102,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private void validateSampleOperation() {
         if (isEmpty())
             throw new NoSuchElementException("The randomized queue is empty.");
+    }
+
+    public boolean isEmpty() {
+        return itemCount == 0;
+    }
+
+    public int size() {
+        return itemCount;
     }
 
     private int getARandomItemIndex() {
