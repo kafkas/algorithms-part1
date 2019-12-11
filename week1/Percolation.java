@@ -2,7 +2,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private static final boolean OPEN = true;
-    private static final boolean BLOCKED = false;
+    private static final boolean BLOCKED = !OPEN;
     private static final int TOP_VIRTUAL_INDEX = 0;
     private final int gridSize;
     private final WeightedQuickUnionUF forest1, forest2;
@@ -97,7 +97,7 @@ public class Percolation {
 
     public boolean isOpen(int row, int col) {
         validateCoordinates(row, col);
-        return sites[convertTo1DIndex(row, col)];
+        return sites[convertTo1DIndex(row, col)] == OPEN;
     }
 
     private void validateCoordinates(int row, int col) {
