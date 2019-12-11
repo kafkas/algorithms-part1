@@ -53,20 +53,6 @@ public class Percolation {
         }
     }
 
-    public boolean isOpen(int row, int col) {
-        validateCoordinates(row, col);
-        return sites[convertTo1DIndex(row, col)];
-    }
-
-    private void validateCoordinates(int row, int col) {
-        if (!areValidCoordinates(row, col))
-            throw new IllegalArgumentException("One of the arguments is outside the range [1, n].");
-    }
-
-    private int convertTo1DIndex(int row, int col) {
-        return (gridSize * (row - 1) + col);
-    }
-
     private void openSite(int siteIndex) {
         sites[siteIndex] = OPEN;
     }
@@ -88,10 +74,6 @@ public class Percolation {
         forest2.union(bottomVirtualIndex(), siteIndex);
     }
 
-    private int bottomVirtualIndex() {
-        return gridSize * gridSize + 1;
-    }
-
     private void connectSiteToNeighboringOpenSites(int row, int col, int siteIndex) {
         // Each delta represents the {vertical, horizontal} distance between the site and one of its
         // neighbors (4 max).
@@ -106,16 +88,29 @@ public class Percolation {
         }
     }
 
-    private boolean areValidCoordinates(int row, int col) {
-        return (row >= 1 && row <= gridSize && col >= 1 && col <= gridSize);
-    }
-
     public boolean isFull(int row, int col) {
-        validateCoordinates(row, col);
         if (!isOpen(row, col) || openSiteCount < row)
             return false;
         // To prevent backwash, we need to ignore the forest with the bottom virtual.
         return forest1.connected(TOP_VIRTUAL_INDEX, convertTo1DIndex(row, col));
+    }
+
+    public boolean isOpen(int row, int col) {
+        validateCoordinates(row, col);
+        return sites[convertTo1DIndex(row, col)];
+    }
+
+    private void validateCoordinates(int row, int col) {
+        if (!areValidCoordinates(row, col))
+            throw new IllegalArgumentException("One of the arguments is outside the range [1, n].");
+    }
+
+    private boolean areValidCoordinates(int row, int col) {
+        return (row >= 1 && row <= gridSize && col >= 1 && col <= gridSize);
+    }
+
+    private int convertTo1DIndex(int row, int col) {
+        return (gridSize * (row - 1) + col);
     }
 
     public int numberOfOpenSites() {
@@ -127,5 +122,9 @@ public class Percolation {
             return false;
         // System percolates if bottom virtual is connected to top virtual
         return forest2.connected(TOP_VIRTUAL_INDEX, bottomVirtualIndex());
+    }
+
+    private int bottomVirtualIndex() {
+        return gridSize * gridSize + 1;
     }
 }

@@ -6,7 +6,7 @@ My coding style can be summarised as:
 
 - Use small functions that do one thing only and have no hidden side effects
 - Have one level of abstraction per function (with small violations)
-- Each function should take at most 4 distinct arguments (more work to be done on this)
+- Each function should take at most 4 non-related arguments (more work to be done on this)
 - Prefer long, descriptive, intention-revealing names over comments
 - Avoid comments if names are self-explanatory (including javadocs)
 - Declarations of functions used in each function should be found as fast as possible below that function
