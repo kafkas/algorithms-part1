@@ -4,7 +4,6 @@ public class Percolation {
     private static final boolean OPEN = true;
     private static final boolean BLOCKED = !OPEN;
     private static final int TOP_VIRTUAL_INDEX = 0;
-    private final int gridSize;
     private final WeightedQuickUnionUF forest1, forest2;
     private boolean[] sites; // sites[index] indicates whether a site is OPEN or BLOCKED
     private int openSiteCount;
@@ -17,10 +16,9 @@ public class Percolation {
 
     public Percolation(int n) {
         validateGridSize(n);
-        gridSize = n;
-        forest1 = new WeightedQuickUnionUF(1 + gridSize * gridSize); // With top virtual node
-        forest2 = new WeightedQuickUnionUF(2 + gridSize * gridSize); // With both virtual nodes
-        initialiseGrid();
+        forest1 = new WeightedQuickUnionUF(1 + n * n); // With top virtual node
+        forest2 = new WeightedQuickUnionUF(2 + n * n); // With both virtual nodes
+        initialiseGrid(n);
     }
 
     private void validateGridSize(int n) {
@@ -28,7 +26,7 @@ public class Percolation {
             throw new IllegalArgumentException("Grid size must be at least 1.");
     }
 
-    private void initialiseGrid() {
+    private void initialiseGrid(int gridSize) {
         sites = new boolean[gridSize * gridSize + 2];
         sites[TOP_VIRTUAL_INDEX] = OPEN;
         for (int i = 1; i < bottomVirtualIndex(); i += 1)
@@ -62,7 +60,7 @@ public class Percolation {
     }
 
     private boolean siteIsInLastRow(int row) {
-        return row == gridSize;
+        return row == gridSize();
     }
 
     private void connectSiteToTopVirtual(int siteIndex) {
@@ -106,11 +104,11 @@ public class Percolation {
     }
 
     private boolean areValidCoordinates(int row, int col) {
-        return (row >= 1 && row <= gridSize && col >= 1 && col <= gridSize);
+        return (row >= 1 && row <= gridSize() && col >= 1 && col <= gridSize());
     }
 
     private int convertTo1DIndex(int row, int col) {
-        return (gridSize * (row - 1) + col);
+        return (gridSize() * (row - 1) + col);
     }
 
     public int numberOfOpenSites() {
@@ -118,13 +116,17 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        if (openSiteCount < gridSize)
+        if (openSiteCount < gridSize())
             return false;
         // System percolates if bottom virtual is connected to top virtual
         return forest2.connected(TOP_VIRTUAL_INDEX, bottomVirtualIndex());
     }
 
     private int bottomVirtualIndex() {
-        return gridSize * gridSize + 1;
+        return gridSize() * gridSize() + 1;
+    }
+
+    private int gridSize() {
+        return (int) Math.sqrt(sites.length - 2);
     }
 }
